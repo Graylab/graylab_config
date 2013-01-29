@@ -1,0 +1,8 @@
+# This function allows you to get an up-to-date count of completed decoys for an output directory 
+function decoy_count() { date; for d in $( /bin/ls -d $* ); do /bin/echo -n $d:  ; /bin/ls $d/*.pdb | /usr/bin/wc |  /usr/bin/printf '%7d\n' `/usr/bin/awk '{print $1 }'`; done 2>/dev/null; }
+
+# This function reports the number of .in_progress files in a particular directory or set of directories.  Useful for checking if a simulation has started to pile up .in_progress files.
+function in_progress_count() { date; for d in $( /binls -d $* ); do /bin/echo -n $d:; /bin/ls $d/*.in_progress | /usr/bin/wc | /usr/bin/printf '%5d\n' `/usr/bin/awk '{print $1 }'`; done 2>/dev/null; }
+
+# A nice little shortcut for showing how many of your own jobs are currently in the condor_q.
+alias my_jobs='condor_q $USER | tail -1'
