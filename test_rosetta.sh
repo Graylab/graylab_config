@@ -1,0 +1,35 @@
+
+## INFO ##:
+#Script to be added as an alias in .zshrc or equivalent.
+#Used for testing master vs current branch integration tests of a local Rosetta Repo.
+#Be sure to merge master into current before running test.
+
+## Use ##: Start the script in the rosetta_source directory.
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+git checkout master
+
+#Compile Master
+echo Compiling
+scons bin mode=release -j7 cxx=clang
+cd ../rosetta_tests/integration/
+
+#Test Master
+rm -r ref/
+echo Running Ref
+./integration.py -j7 -c clang -d ../../rosetta_database
+cd ../../rosetta_source
+
+echo Checking Out $current_branch
+git checkout $current_branch
+
+#Compile branch
+echo Compiling branch
+scons bin mode=release -j7 cxx=clang
+cd ../rosetta_tests/integration/
+
+#Test branch
+rm -r new/
+echo Running New
+./integration.py -j7 -c clang -d ../../rosetta_database
+diff -r new/ ref/
