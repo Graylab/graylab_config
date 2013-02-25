@@ -1,10 +1,13 @@
 
-## INFO ##:
-#Script to be added as an alias in .zshrc or equivalent.
-#Used for testing master vs current branch integration tests of a local Rosetta Repo.
-#Be sure to merge master into current before running test.
+## Info ##:
+ #Script to be added as an alias in .zshrc or equivalent.
+ #Used for testing master vs current branch integration tests of a local Rosetta Repo.
+ #Be sure to merge master into current before running test.
 
-## Use ##: Start the script in the rosetta_source directory.
+## Use ##:
+ #Replace -jx with whatever you require.
+ #If you don't use clang - no time quite like the present.
+ #Start the script in the rosetta_source directory.
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 git checkout master
