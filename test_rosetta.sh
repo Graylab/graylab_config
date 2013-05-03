@@ -15,13 +15,13 @@ git checkout master
 #Compile Master
 echo Compiling
 scons bin mode=release -j7 cxx=clang
-cd ../rosetta_tests/integration/
+cd ../tests/integration/
 
 #Test Master
 rm -r ref/
 echo Running Ref
-./integration.py -j7 -c clang -d ../../rosetta_database
-cd ../../rosetta_source
+./integration.py -j8 -c clang -d ../../database
+cd ../../source
 
 echo Checking Out $current_branch
 git checkout $current_branch
@@ -29,10 +29,10 @@ git checkout $current_branch
 #Compile branch
 echo Compiling branch
 scons bin mode=release -j7 cxx=clang
-cd ../rosetta_tests/integration/
+cd ../tests/integration/
 
 #Test branch
 rm -r new/
 echo Running New
-./integration.py -j7 -c clang -d ../../rosetta_database
+./integration.py -j8 -c clang -d ../../database
 diff -r new/ ref/
